@@ -8,9 +8,9 @@
     // function config($routeProvider,$locationProvider,$httpProvider,socialProvider){
      angular.module('loc8rApp',['ui.bootstrap','ngRoute','ngSanitize']);
 
-    function config($routeProvider,$locationProvider){
-    	// $httpProvider.defaults.useXDomain = true;
-     //    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    function config($routeProvider,$locationProvider,$httpProvider){
+    	$httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With']; //fix loi header
         
      //    socialProvider.setGoogleKey("206179895507-v4u0aprobcoh5cfarlva3m621ne96t5c.apps.googleusercontent.com");
         $locationProvider.html5Mode(true);

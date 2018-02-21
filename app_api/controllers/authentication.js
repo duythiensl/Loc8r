@@ -166,13 +166,11 @@ module.exports.resetpassword = function(req, res){
   	function(done) {
   		User.findOne({ "local.resetPasswordToken": req.params.token, "local.resetPasswordExpires": { $gt: Date.now() } }, function(err, user) {
   			if (!user) {
-                
   				sendJSONrespone(res,400,{
                     "message":"Password reset token is invalid or has expired."
                 });
-  				return res.redirect('back');
+  				return res.redirect('/reset/'+req.params.token);
   			}
-           
   			user.setPassword(req.params.password);
 	        user.local.resetPasswordToken = undefined;
 	        user.local.resetPasswordExpires = undefined;
