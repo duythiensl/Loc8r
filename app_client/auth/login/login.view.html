@@ -1,0 +1,32 @@
+<navigation></navigation>
+<div class="container">
+    <page-header content="vm.pageHeader"></page-header>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <p class="lead">Not a member? Please <a href="/register?page={{vm.returnPage}}">register</a> first.</p>
+            <form ng-submit="vm.onSubmit()">
+                <div class="alert alert-danger" role ="alert" ng-show="vm.formError">{{vm.formError}}</div>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id ="email" placeholder="Enter email" ng-model="vm.credentials.email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id ="email" placeholder="Enter password" ng-model="vm.credentials.password">
+                </div>
+                 
+                <div class="btn-toolbar" role="toolbar">
+                		<button type="submit" class="btn btn-default btn-group">Sign in!</button>
+                        <div class="btn btn-warning" ng-click="vm.loginGoogle()"><span class="fa fa-google-plus"></span> Google</div>
+                  <!--        <a href="/api/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a> -->
+                		<!-- <div class="btn btn-success" ng-click="vm.loginFacebook()"><span class="fa fa-facebook"></span> Facebook</div> -->
+                    <a href="/api/auth/facebook" target="_blank" class="btn btn-success"><span class="fa fa-facebook"></span> Facebook</a>
+                </div>
+               
+                <div class="form-group"><a href="/forgot">Forgot password?</a></div>
+                
+            </form>
+        </div>
+    </div>
+    <footer-generic></footer-generic>
+</div>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="loc8rApp">
+<head>
+    <base href="/">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="google-signin-client_id" content="206179895507-v4u0aprobcoh5cfarlva3m621ne96t5c.apps.googleusercontent.com">
+   <meta charset="UTF-8">
+   <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+   <title>Loc8r</title>
+   <link rel="stylesheet" href="/bootstrap/css/amelia.bootstrap.css">
+   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+   <link rel="stylesheet" href="/stylesheets/style.css">
+   <link rel="stylesheet" href="/lib/css/emoji.min.css">
+</head>
+<body  ng-view>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/javascripts/angular/angular.min.js"></script>
+
+    <script src="/lib/angular-route.min.js"></script>
+    <script src="/lib/angular-sanitize.min.js"></script>
+    <script src="/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<!--     <script src="/lib/js/loc8r.min.js"></script> -->
+    <script src='/app.js'></script>
+
+
+    <script src='/home/home.controller.js'></script>
+    <script src='/locationDetail/locationDetail.controller.js'></script>
+    <script src='/about/about.controller.js'></script>
+    <script src='/reviewModal/reviewModal.controller.js'></script>
+    <script src='/auth/register/register.controller.js'></script>
+    <script src='/auth/login/login.controller.js'></script>
+    <script src='/common/directives/navigation/navigation.controller.js'></script>
+    <script src='/auth/forgotpassword/forgotpassword.controller.js'></script>
+    <script src='/auth/resetpassword/resetpassword.controller.js'></script>
+    <script src='/auth/login/loginByToken.controller.js'></script>
+
+
+
+    <script src='/common/services/loc8rData.service.js'></script>
+    <script src='/common/services/geolocation.service.js'></script>
+    <script src='/common/services/authentication.service.js'></script> 
+
+
+
+    <script src='/common/directives/ratingStars/ratingStars.directive.js'></script>
+    <script src='/common/directives/footerGeneric/footerGeneric.directive.js'></script>
+    <script src='/common/directives/navigation/navigation.directive.js'></script>
+    <script src='/common/directives/pageHeader/pageHeader.directive.js'></script>
+
+
+
+    <script src='/common/filters/formatDistance.filter.js'></script>
+    <script src='/common/filters/addHtmlLineBreaks.filter.js'></script>
+
+    <!--  angularJS direct end  -->
+    <script src='/javascripts/jquery-3.2.1.min.js'></script>
+    <script src='/bootstrap/js/bootstrap.min.js'></script>
+    <script src="/javascripts/validation.js"></script>
+</body>
+</html>
+

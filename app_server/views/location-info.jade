@@ -1,0 +1,60 @@
+extends layout
+include _includes/sharedHTMLfunctions
+block content
+    .row.page-header
+        .col-lg-12
+            h1= location.name
+    .row
+        .col-xz-12.col-md-9
+            .row
+                .col-xs-12.col-sm-6
+                    p.rating
+                        +outputRating(location.rating)
+                    p=location.address
+                    .panel.panel-primary
+                        .panel-heading
+                            h2.panel-title Giờ mở cửa
+                        each openingtime in location.openingTimes
+                            .panel-body
+                               p 
+                                +formatOpeningTime(openingtime)
+                    .panel.panel-primary
+                        .panel-heading
+                            h2.panel-title Trang thiết bị
+
+                        .panel-body
+                                each facitity in location.facilities
+                                    span.label.label-warning
+                                        
+                                        span.glyphicon.glyphicon-ok
+                                        = facitity 
+                                    | &nbsp;
+                .col-xs-12.col-sm-6.location-map
+                    .panel.panel-primary
+                        .panel-heading
+                            h2.panel-title Bản đồ địa điểm
+                        .panel-body
+                           img.img-responsive.img-rounded(src="http://maps.googleapis.com/maps/api/staticmap?center=#{location.coords.lat},#{location.coords.lng}&zoom=17&size=400x350&sensor=false&markers=5#{location.coords.lat},#{location.coords.lng}&scale=2")
+            .row
+                .col-xs-12
+                    .panel.panel-primary.review-panel
+                        .panel-heading
+                            a.btn.btn-default.pull-right(href='/location/#{location._id}/reviews/new') Add review
+                            h2.panel-title Khách hàng đánh gía
+                        .panel-body.review-container
+                            .row
+                                .review
+                                    each review in location.reviews 
+                                        .well.well-sm.review-header
+                                            span.rating
+                                                +outputRating(review.rating)
+                                            span.reviewAuthor #{review.author}
+                                            small.reviewTimestamp 
+                                                +formatDate(review.createdOn)
+                                          
+                                        .col-xs-12
+                                            p #{review.reviewText}
+        .col-xs-12.col-md-3 
+                    p.lead=sidebar.context
+                    p=sidebar.callToAction
+
