@@ -1,11 +1,11 @@
 'use strict';
-var mongoose = require('mongoose');
-var theEarth = (function () {
-    var earthRadius = 6371; //km
-    var getDistanceFromRads = function (rads) {
+let mongoose = require('mongoose');
+let theEarth = (function () {
+    let earthRadius = 6371; //km
+    let getDistanceFromRads = function (rads) {
         return parseFloat(rads * earthRadius);
     };
-    var getRadsFromDistance = function (distance) {
+    let getRadsFromDistance = function (distance) {
         return parseFloat(distance / earthRadius);
     };
     return {
@@ -15,46 +15,87 @@ var theEarth = (function () {
 }());
 
 
-var Loc = mongoose.model('Location');
-var sendJsonResponse = function (res, status, content) {
+let Loc = mongoose.model('Location');
+let sendJsonResponse = function (res, status, content) {
     res.status(status);
     res.json(content);
 };
 module.exports.locationsCreate = function (req, res) {
-    Loc.create({
-        name: req.body.name,
-        address: req.body.address,
-        facilities: req.body.facilities.split(","),
-        coords: [parseFloat(req.body.lng), parseFloat(req.body.lat)],
-        openingTimes: [{
-            days: req.body.days1,
-            opening: req.body.opening1,
-            closing: req.body.closing1,
-            closed: req.body.closed1,
-        }, {
-            days: req.body.days2,
-            opening: req.body.opening2,
-            closing: req.body.closing2,
-            closed: req.body.closed2,
-        }]
-    }, function (err, location) {
-        if (err) {
-            sendJsonResponse(res, 400, err);
-        } else {
-            sendJsonResponse(res, 201, location);
-        }
-    });
+    try {
+        let options = {
+            name: req.body.name,
+            address: req.body.address,
+            facilities: req.body.facilities.split(","),
+            coords: [parseFloat(req.body.lng), parseFloat(req.body.lat)],
+            openingTimes: [{
+                days: req.body.days1,
+                opening: req.body.opening1,
+                closing: req.body.closing1,
+                closed: req.body.closed1,
+            }, {
+                days: req.body.days2,
+                opening: req.body.opening2,
+                closing: req.body.closing2,
+                closed: req.body.closed2,
+            }]
+        };
+
+        Loc.create(options, function (err, location) {
+            if (err) {
+                sendJsonResponse(res, 400, err);
+            } else {
+                sendJsonResponse(res, 201, location);
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
+};
+
+module.exports.locationsList = function (req, res) {
+    try {
+        Loc
+            .find()
+            .exec(function (err, results) {
+                let locations = [];
+                if (err) {
+                    sendJsonResponse(res, 404, err);
+                }
+                else {
+                    results.forEach(doc => {
+                        locations.push({
+                            coords:
+                            {
+                                lng: doc.coords[0],
+                                lat: doc.coords[1],
+                            },
+                            name: doc.name,
+                            address: doc.address,
+                            rating: doc.rating,
+                            facilities: doc.facilities,
+                            _id: doc._id
+                        });
+                    });
+                    sendJsonResponse(res, 200, locations);
+                }
+            });
+    } catch (error) {
+        sendJsonResponse(res, 400, error);
+    }
+
 };
 module.exports.locationsListByDistance = function (req, res) {
-    var lng = parseFloat(req.query.lng);
-    var lat = parseFloat(req.query.lat);
-    var point = {
+    let lng = parseFloat(req.query.lng);
+    let lat = parseFloat(req.query.lat);
+    let max = parseFloat(req.query.maxDistance);
+    let point = {
         type: "Point",
         coordinates: [lng, lat]
     };
-    var geoOptions = {
+    let geoOptions = {
         spherical: true,
-        maxDistance: theEarth.getRadsFromDistance(20),
+        maxDistance: theEarth.getRadsFromDistance(max),
         num: 10
     };
     if (!lng || !lat) {
@@ -63,8 +104,9 @@ module.exports.locationsListByDistance = function (req, res) {
         });
         return;
     }
+
     Loc.geoNear(point, geoOptions, function (err, results) {
-        var locations = [];
+        let locations = [];
         if (err) {
             sendJsonResponse(res, 404, err);
         }
@@ -170,7 +212,7 @@ module.exports.locationsDeleteOne = function (req, res) {
             .findByIdAndRemove(req.params.locationid)
             .exec(
                 function (err, location) {
-                    var cf = confirm("are you sure you want to delete?");
+                    let cf = confirm("are you sure you want to delete?");
                     if (err) {
                         sendJsonResponse(res, 404, err);
                         return;

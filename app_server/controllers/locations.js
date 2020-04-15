@@ -36,7 +36,7 @@ module.exports.homelist = function (req, res) {
         method: "GET",
         json: {},
         qs: {
-            lng: -0.9690884,
+            lng: -0.96908843,
             lat: 51.455041,
             maxDistance: 20
         }
@@ -62,6 +62,7 @@ module.exports.homelist = function (req, res) {
                     data[i].distance = _formatDistance(data[i].distance);
                 }
             }
+            console.log("dt:",data)
             renderHomepage(req, res, data);
         }
     );
