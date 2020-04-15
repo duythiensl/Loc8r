@@ -1,6 +1,5 @@
 'use strict';
 (function(){
-    
     var loginCtrl= function($location,authentication, $window){
         var vm = this;
         vm.pageHeader ={

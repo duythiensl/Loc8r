@@ -8,7 +8,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 //import UglifyJS
-//var routes = require('./app_server/routes/index');
 //requre Passport before modeldefinition
 var passport = require('passport');
 
@@ -33,9 +32,6 @@ app.all('*',function(req, res, next) {
     }
 });
 app.set('views', path.join(__dirname,'app_server', 'views'));
-
-
-
 
 // view engine setup
 app.use(favicon());

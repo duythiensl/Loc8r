@@ -46,11 +46,7 @@
                     }
                 };
 
-                $timeout(timer, 1000);  
-                
-
-
-                  
+                $timeout(timer, 1000);        
            },function(err){
                vm.formError = err.statusText;
            });
