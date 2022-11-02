@@ -46,7 +46,7 @@
     "url": "https://github.com/duythiensl/Locr8"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-uglify": "^3.0.0",
     "nodemon": "^1.15.1"
   }
